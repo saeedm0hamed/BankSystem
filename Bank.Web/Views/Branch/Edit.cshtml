@@ -1,0 +1,59 @@
+﻿  @model Branch  
+
+  <form method="post">  
+  	<div class="border p-3 mt-4">  
+
+  		<div class="row pb-2">  
+  			<h1>Edit Existing Branch</h1>  
+  			<hr />  
+  		</div>  
+
+  		<div class="mb-3 row p-1">  
+  			<label asp-for="Name" class="p-1"></label>  
+  			<input asp-for="Name" class="form-control" />  
+  			<span asp-validation-for="Name" class="text-danger"></span>  
+  		</div>  
+  		<div class="mb-3 row p-1">  
+  			<label asp-for="Location" class="p-1"></label>  
+  			<input asp-for="Location" class="form-control"/>  
+  			<span asp-validation-for="Location" class="text-danger"></span>  
+  		</div> 
+  		<div class="mb-3 row p-1">  
+  			<label asp-for="Phone" class="p-1"></label>  
+  			<input asp-for="Phone" class="form-control" type="tel"/>  
+  			<span asp-validation-for="Phone" class="text-danger"></span>  
+  		</div>  
+        <div class="mb-3 row p-1">
+            <label asp-for="OpenDate" class="p-1"></label>
+            <input asp-for="OpenDate" class="form-control" type="date"/>
+            <span asp-validation-for="OpenDate" class="text-danger"></span>
+        </div>
+
+        @* <div class="mb-3 row p-1"> *@
+        @*     <label asp-for="Employees" class="p-1"></label> *@
+        @*     <input asp-for="Employees" class="form-control" /> *@
+        @*     <span asp-validation-for="Employees" class="text-danger"></span> *@
+        @* </div> *@
+
+        <div class="row row-cols-auto">  
+  			<div class="col">  
+  				<button type="submit" class="btn btn-primary" style="width:150px">UPDATE</button>  
+  			</div>  
+
+  			<div class="col p-0">  
+  				<a asp-controller="Branch" asp-action="Index" class="btn btn-outline-secondary">  
+  					BACK  
+  				</a>  
+  			</div>  
+  		</div>  
+
+  	</div>  
+
+  </form>  
+
+@* Client-side validation   *@
+@section Scripts {  
+    @{  
+  	    <partial name="_ValidationScriptsPartial"></partial>  
+    }  
+  }

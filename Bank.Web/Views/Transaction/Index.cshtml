@@ -1,0 +1,96 @@
+﻿@model List<Transaction>
+
+<div class="card shadow border-0 mt-4">
+    <div class="card-header ml-0 py-3" style="background: conic-gradient(from -140.06deg, #020401, #656565)">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1 class="text-white py-2">Transaction List</h1>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-4">
+        <div class="row pb-3">
+            <div class="col-6">
+                <div class="input-group">
+                    <input type="text" id="searchInput" class="form-control" placeholder="Search transactions...">
+                    <button class="btn btn-outline-secondary" type="button" id="clearSearch">
+                        <i class="bi bi-x-circle"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="col-6 text-end">
+                <a asp-controller="Transaction" asp-action="Create" class="btn btn-success">
+                    <i class="bi bi-plus-circle"></i> CREATE NEW TRANSACTION
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered">
+            <thead class="table-light">
+                <tr>
+                    <th>ID</th>
+                    <th>Date</th>
+                    <th>Type</th>
+                    <th>Amount</th>
+                    <th>Account(s)</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.OrderByDescending(t => t.Date))
+                {
+                <tr class="transaction-row">
+                    <td>@item.Id</td>
+                    <td>@item.Date</td>
+                    <td>
+                        <span class="badge @(item.Type == "Deposit" ? "bg-success" : item.Type == "Withdrawal" ? "bg-danger" : "bg-primary")">
+                            @item.Type
+                        </span>
+                    </td>
+                    <td class="@(item.Type == "Deposit" ? "text-success" : item.Type == "Withdrawal" ? "text-danger" : "")">
+                        @(item.Type == "Withdrawal" ? "-" : item.Type == "Deposit" ? "+" : "")@item.Amount$
+                    </td>
+                    <td>
+                        @if (item.Type == "Transfer")
+                        {
+                            <span>@item.FromAccount?.Id → @item.ToAccount?.Id</span>
+                        }
+                        else
+                        {
+                            <span>@item.Account?.Id</span>
+                        }
+                    </td>
+                    <td>
+                        <form asp-action="Delete" asp-route-id="@item.Id" method="post" style="display: inline;">
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-outline-danger"
+                                    onclick="return confirm('Are you sure you want to delete?')">
+                                <i class="bi bi-trash-fill"></i> DELETE
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            $("#searchInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $(".transaction-row").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+
+            $("#clearSearch").click(function() {
+                $("#searchInput").val("");
+                $(".transaction-row").show();
+            });
+        });
+    </script>
+}

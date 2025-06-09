@@ -1,0 +1,79 @@
+﻿@model Employee
+
+<div class="card shadow border-0 mt-4">
+    <div class="card-header ml-0 py-3" style="background: conic-gradient(from -140.06deg, #020401, #656565)">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1 class="text-white py-2">New Employee Creation</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-body p-4">
+        <form method="post" class="row">
+            <div class="p-3">
+                <div class="pb-2">
+                    <label asp-for="Name"></label>
+                    <input asp-for="Name" class="form-control" type="text" placeholder="First Last" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <div class="pb-2">
+                    <label asp-for="NationalID"></label>
+                    <input asp-for="NationalID" class="form-control" placeholder="00000000000000" />
+                    <span asp-validation-for="NationalID" class="text-danger"></span>
+                </div>
+
+                <div class="pb-2">
+                    <label asp-for="Phone"></label>
+                    <input asp-for="Phone" class="form-control" type="tel" placeholder="01000000000" />
+                    <span asp-validation-for="Phone" class="text-danger"></span>
+                </div>
+
+                <div class="pb-2">
+                    <label asp-for="Branch"></label>
+                    <select asp-for="BranchId" class="form-select">
+                        <option value="">-- Select Branch --</option>
+                        @if (ViewBag.Branches != null)
+                        {
+                            foreach (SelectListItem branch in ViewBag.Branches)
+                            {
+                                <option value="@branch.Value">@branch.Text</option>
+                            }
+                        }
+                    </select>
+                    <span asp-validation-for="BranchId" class="text-danger"></span>
+                </div>
+
+                <div class="pb-2">
+                    <label asp-for="Salary"></label>
+                    <input asp-for="Salary" class="form-control" placeholder="0000" type="number" />
+                    <span asp-validation-for="Salary" class="text-danger"></span>
+                </div>
+
+                <div class="pb-2">
+                    <label asp-for="Email"></label>
+                    <input asp-for="Email" class="form-control" type="email" placeholder="employee@gmail.com" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+                <div class="row row-cols-auto">
+                    <div class="col">
+                        <button type="submit" class="btn btn-primary" style="width:150px">CREATE</button>
+                    </div>
+                    <div class="col p-0">
+                        <a asp-controller="Employee" asp-action="Index" class="btn btn-outline-secondary">
+                            BACK
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial"></partial>
+    }
+}

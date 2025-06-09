@@ -1,0 +1,201 @@
+﻿  @model List<Account>  
+
+  <div class="card shadow border-0 mt-4">  
+  	<div class="card-header ml-0 py-3" style="background: conic-gradient(from -140.06deg, #020401, #656565)">  
+  		<div class="row">  
+              <div class="col-12 text-center">  
+                  <h1 class="text-white py-2">Account List</h1>  
+              </div>  
+          </div>  
+      </div>  
+      <div class="card-body p-4">  
+          <div class="row pb-3">  
+              <div class="col-6">  
+                  <div class="input-group">
+                      <input type="text" id="searchInput" class="form-control" placeholder="Search accounts...">
+                      <button class="btn btn-outline-secondary" type="button" id="clearSearch">
+                          <i class="bi bi-x-circle"></i>
+                      </button>
+                  </div>
+              </div>  
+
+              <div class="col-6 text-end">  
+  				<a asp-controller="Account" asp-action="Create" class="btn btn-success"><i class="bi bi-plus-circle"></i> CREATE NEW ACCOUNT</a>  
+              </div>  
+          </div>  
+      </div>
+    <table class="table table-hover table-bordered align-middle">
+        <thead class="table-light">  
+  			<tr>  
+  				<th>  
+  					Account ID  
+  				</th>  
+                <th>
+                    Customer
+                </th>
+  				<th>  
+  					Status
+  				</th>  
+  				<th>  
+  					Type 
+  				</th>    
+  				<th>  
+  					Balance 
+  				</th>   
+  				<th>  
+  					Open Date  
+  				</th>
+                <th>
+                    Branch
+                </th>
+                <th>
+                    Transactions
+                </th>
+                <th>
+                    Actions
+                </th>
+            </tr>  
+  		</thead>  
+
+  		<tbody>  
+  			@foreach (var item in Model)  
+  			{  
+  				<tr class="account-row">  
+  					<td>@item.Id</td>  
+  					<td>@item.Customer</td>
+                    <td>
+                        <span class="badge @(item.Status == "Active" ? "bg-success" : item.Status == "Closed" ? "bg-danger" : "bg-warning")">
+                            @item.Status
+                        </span>
+                    </td>
+  					<td>@item.Type</td>  
+  					<td>@item.Balance$</td>  
+  					<td>@item.OpenDate</td>  
+  					<td>@item.Branch</td>
+                    <td class="dropdown">
+                        @{
+                            var totalTransactions = 0;
+                            if (item.Transactions != null) totalTransactions += item.Transactions.Count;
+                            if (item.FromTransactions != null) totalTransactions += item.FromTransactions.Count;
+                            if (item.ToTransactions != null) totalTransactions += item.ToTransactions.Count;
+                        }
+                        @if (totalTransactions > 0)
+                        {
+                            <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton@(item.Id)" data-bs-toggle="dropdown" aria-expanded="false">
+                                @totalTransactions Transactions
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton@(item.Id)" style="max-height: 300px; overflow-y: auto;">
+                                @{
+                                    var allTransactions = new List<Bank.Models.Transaction>();
+                                    if (item.Transactions != null) allTransactions.AddRange(item.Transactions);
+                                    if (item.FromTransactions != null) allTransactions.AddRange(item.FromTransactions);
+                                    if (item.ToTransactions != null) allTransactions.AddRange(item.ToTransactions);
+                                    var sortedTransactions = allTransactions.OrderByDescending(t => t.Date);
+                                }
+                                @foreach (var transaction in sortedTransactions)
+                                {
+                                    decimal balanceBefore = 0;
+                                    decimal balanceAfter = 0;
+                                    string transactionType = transaction.Type;
+                                    string amountPrefix = "";
+                                    string amountClass = "";
+
+                                    if (transaction.Type == "Transfer")
+                                    {
+                                        if (transaction.FromAccountId == item.Id)
+                                        {
+                                            // Outgoing transfer
+                                            balanceBefore = item.Balance + transaction.Amount;
+                                            balanceAfter = item.Balance;
+                                            amountPrefix = "-";
+                                            amountClass = "text-danger";
+                                            transactionType = "Transfer Out";
+                                        }
+                                        else if (transaction.ToAccountId == item.Id)
+                                        {
+                                            // Incoming transfer
+                                            balanceBefore = item.Balance - transaction.Amount;
+                                            balanceAfter = item.Balance;
+                                            amountPrefix = "+";
+                                            amountClass = "text-success";
+                                            transactionType = "Transfer In";
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (transaction.Type == "Deposit")
+                                        {
+                                            balanceBefore = item.Balance - transaction.Amount;
+                                            balanceAfter = item.Balance;
+                                            amountPrefix = "+";
+                                            amountClass = "text-success";
+                                        }
+                                        else if (transaction.Type == "Withdrawal")
+                                        {
+                                            balanceBefore = item.Balance + transaction.Amount;
+                                            balanceAfter = item.Balance;
+                                            amountPrefix = "-";
+                                            amountClass = "text-danger";
+                                        }
+                                    }
+
+                                    <li>
+                                        <div class="dropdown-item">
+                                            <small class="text-muted">@transaction.Date</small><br />
+                                            <strong>@transactionType</strong>
+                                            @if (transaction.Type == "Transfer")
+                                            {
+                                                <br />
+                                                <small>
+                                                    @if (transaction.FromAccountId == item.Id)
+                                                    {
+                                                        <span>To: @transaction.ToAccount?.Id</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span>From: @transaction.FromAccount?.Id</span>
+                                                    }
+                                                </small>
+                                            }
+                                            <br />
+                                            <span class="@amountClass">Amount: @amountPrefix@transaction.Amount$</span><br />
+                                            <small>Balance: @balanceBefore$ → @balanceAfter$</small>
+                                        </div>
+                                    </li>
+                                    <li><hr class="dropdown-divider"></li>
+                                }
+                            </ul>
+                        } 
+                        else {
+                            <span class="text-muted">No Transactions</span>
+                        }
+                    </td>
+  					<td>  
+  						<a asp-controller="Account" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary"><i class="bi bi-pencil-square"></i> EDIT</a>
+                        @* <a asp-controller="Account" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger" onclick="return confirm('Are you sure you want to delete?')"><i class="bi bi-trash-fill"></i> DELETE</a> *@
+                    </td>  
+  				</tr>  
+  			}  
+  		</tbody>  
+  	</table>  
+  </div>  
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Search functionality
+            $("#searchInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $(".account-row").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+
+            // Clear search
+            $("#clearSearch").click(function() {
+                $("#searchInput").val("");
+                $(".account-row").show();
+            });
+        });
+    </script>
+}  

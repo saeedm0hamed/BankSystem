@@ -1,0 +1,110 @@
+@model Transaction
+
+<div class="card shadow border-0 mt-4">
+    <div class="card-header ml-0 py-3" style="background: conic-gradient(from -140.06deg, #020401, #656565)">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1 class="text-white py-2">New Transaction Creation</h1>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-4">
+        <form asp-action="Create">
+            <div class="form-group mb-3">
+                <label asp-for="Type" class="control-label"></label>
+                <select asp-for="Type" class="form-select" id="transactionType">
+                    <option value="">-- Select Transaction Type --</option>
+                    <option value="Deposit">Deposit (+)</option>
+                    <option value="Withdrawal">Withdrawal (-)</option>
+                    <option value="Transfer">Transfer (<-->)</option>
+                </select>
+                <span asp-validation-for="Type" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3" id="singleAccountDiv">
+                <label asp-for="AccountId" class="control-label">Account ID</label>
+                <select asp-for="AccountId" class="form-select" asp-items="ViewBag.Accounts">
+                    <option value="">-- Select Account ID --</option>
+                </select>
+                <span asp-validation-for="AccountId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3" id="transferAccountsDiv" style="display: none;">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label asp-for="FromAccountId" class="control-label">From Account ID</label>
+                        <select asp-for="FromAccountId" class="form-select" asp-items="ViewBag.FromAccounts">
+                            <option value="">-- Select Source Account ID --</option>
+                        </select>
+                        <span asp-validation-for="FromAccountId" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="ToAccountId" class="control-label">To Account ID</label>
+                        <select asp-for="ToAccountId" class="form-select" asp-items="ViewBag.ToAccounts">
+                            <option value="">-- Select Destination Account ID --</option>
+                        </select>
+                        <span asp-validation-for="ToAccountId" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Amount" class="control-label"></label>
+                <input asp-for="Amount" class="form-control" type="number"/>
+                <span asp-validation-for="Amount" class="text-danger"></span>
+            </div>
+
+            <div class="row row-cols-auto">
+                    <div class="col">
+                        <button type="submit" class="btn btn-primary" style="width:150px">CREATE</button>
+                    </div>
+                    <div class="col p-0">
+                        <a asp-controller="Transaction" asp-action="Index" class="btn btn-outline-secondary">
+                            BACK
+                        </a>
+                    </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(function () {
+            $('#transactionType').change(function () {
+                var type = $(this).val();
+                if (type === 'Transfer') {
+                    $('#singleAccountDiv').hide();
+                    $('#transferAccountsDiv').show();
+                    filterToAccounts();
+                } else {
+                    $('#singleAccountDiv').show();
+                    $('#transferAccountsDiv').hide();
+                }
+            });
+            
+            $('#FromAccountId').change(function() {
+                filterToAccounts();
+            });
+            
+            function filterToAccounts() {
+                var fromAccountId = $('#FromAccountId').val();
+                var $toAccountSelect = $('#ToAccountId');
+                
+                if (fromAccountId) {
+                    $toAccountSelect.find('option').show();
+                    $toAccountSelect.find(`option[value="${fromAccountId}"]`).hide();
+                    
+                    if ($toAccountSelect.val() === fromAccountId) {
+                        $toAccountSelect.val('');
+                    }
+                } else {
+                    $toAccountSelect.find('option').show();
+                }
+            }
+            
+            filterToAccounts();
+        });
+    </script>
+}

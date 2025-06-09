@@ -1,0 +1,14 @@
+{
+  "version": "3.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "viewerjs@1.11.7",
+      "destination": "wwwroot/lib/viewerjs/"
+    },
+    {
+      "library": "particlesjs@2.2.3",
+      "destination": "wwwroot/lib/particlesjs/"
+    }
+  ]
+}

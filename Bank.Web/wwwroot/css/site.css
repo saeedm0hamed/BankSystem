@@ -1,0 +1,145 @@
+
+html {
+    font-size: 14px;
+    position: relative;
+    min-height: 100%; 
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    margin-bottom: 60px;
+}
+
+
+nav, footer {
+    position: relative;
+    z-index: 2;
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+.nav-link {
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+    z-index: 0;
+    transition: color 0.3s;
+}
+
+.nav-link:hover,
+.nav-link:focus {
+    color: white !important;
+}
+
+.nav-link::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    bottom: -50%;
+    left: -50%;
+    background: linear-gradient(45deg, #0066ff);
+    background-size: 300% 300%;
+    z-index: -1;
+    border-radius: 100vmax;
+    filter: blur(10px);
+    opacity: 0;
+    transition: opacity 0.5s;
+    animation: rotate-97 5s linear infinite;
+}
+
+.nav-link:hover::before,
+.nav-link:focus::before,
+.dropdown.show .nav-link::before,
+.dropdown-menu .nav-link:focus::before {
+    opacity: 1;
+}
+
+
+@keyframes rotate-97 {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
+#particles-js {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: #ffffff;
+    pointer-events: auto;
+    touch-action: manipulation;
+}
+
+.blur-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    backdrop-filter: blur(8px);
+    background-color: rgba(255, 255, 255, 0.1);
+    z-index: 0;
+    pointer-events: none !important;
+}
+
+
+.content-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    min-height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    padding: 2rem;
+    box-sizing: border-box;
+    overflow: hidden; 
+    pointer-events: none;
+}
+
+/* Add cursor to the typed text */
+#typed {
+    position: relative;
+    display: inline-block; /* Makes cursor align properly */
+}
+
+    /* Create the blinking cursor */
+#typed::after {
+    content: '|';
+    position: absolute;
+    right: -8px;
+    animation: blink 1s step-end infinite;
+}
+
+/* Blinking animation */
+@keyframes blink {
+    from, to {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}
+
+/* Center alignment for content */
+.content-container {
+    text-align: center;
+}

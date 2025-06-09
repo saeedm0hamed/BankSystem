@@ -1,0 +1,88 @@
+﻿@model List<Customer>  
+
+<div class="card shadow border-0 mt-4">  
+	<div class="card-header ml-0 py-3" style="background: conic-gradient(from -140.06deg, #020401, #656565)">  
+		<div class="row">  
+			<div class="col-12 text-center">  
+				<h1 class="text-white py-2">Customer List</h1>  
+			</div>  
+		</div>  
+	</div>  
+	<div class="card-body p-4">  
+		<div class="row pb-3">  
+			<div class="col-6">  
+				<div class="input-group">
+					<input type="text" id="searchInput" class="form-control" placeholder="Search customers...">
+					<button class="btn btn-outline-secondary" type="button" id="clearSearch">
+						<i class="bi bi-x-circle"></i>
+					</button>
+				</div>
+			</div>  
+
+			<div class="col-6 text-end">  
+				<a asp-controller="Customer" asp-action="Create" class="btn btn-success"><i class="bi bi-plus-circle"></i> CREATE NEW CUSTOMER</a>  
+			</div>  
+		</div>  
+	</div>  
+	<table class="table table-hover table-bordered align-middle">
+		<thead class="table-light">  
+			<tr>  
+				<th>  
+					Customer ID  
+				</th>  
+				<th>
+					Name
+				</th>  
+				<th>  
+					National ID
+				</th>   
+				<th>  
+					Phone Number
+				</th>  
+				<th>  
+					Email  
+				</th>   
+				<th>
+					Actions
+				</th>
+			</tr>  
+		</thead>  
+
+		<tbody>  
+			@foreach (var item in Model)  
+			{  
+				<tr class="customer-row">  
+					<td>@item.Id</td>  
+					<td>@item.Name</td>  
+					<td>@item.NationalID</td>  
+					<td>@item.Phone</td>  
+					<td>@item.Email</td>  
+					<td>  
+						<a asp-controller="Customer" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary"><i class="bi bi-pencil-square"></i> EDIT</a>
+						<a asp-controller="Customer" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger" onclick="return confirm('Are you sure you want to delete?')"><i class="bi bi-trash-fill"></i> DELETE</a>
+					</td>  
+				</tr>  
+			}  
+		</tbody>  
+	</table>  
+</div>  
+
+@section Scripts {
+	<script>
+		$(document).ready(function() {
+			// Search functionality
+			$("#searchInput").on("keyup", function() {
+				var value = $(this).val().toLowerCase();
+				$(".customer-row").filter(function() {
+					$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+				});
+			});
+
+			// Clear search
+			$("#clearSearch").click(function() {
+				$("#searchInput").val("");
+				$(".customer-row").show();
+			});
+		});
+	</script>
+}  

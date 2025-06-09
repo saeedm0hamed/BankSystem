@@ -1,0 +1,83 @@
+﻿@model Account
+
+<div class="card shadow border-0 mt-4">  
+  	<div class="card-header ml-0 py-3" style="background: conic-gradient(from -140.06deg, #020401, #656565)">  
+  		<div class="row">  
+  			<div class="col-12 text-center">  
+  				<h1 class="text-white py-2">New Account Creation</h1>  
+  			</div>  
+  		</div>  
+  	</div>  
+
+  	<div class="card-body p-4">
+
+        <form method="post" class="row">  
+            <div class="p-3">
+
+                <div class="pb-2">
+                    <label asp-for="Customer"></label>
+                    <select asp-for="CustomerId" class="form-select">
+                        <option value="">-- Select Customer --</option>
+                        @if (ViewBag.Customers != null)
+                        {
+                            foreach (SelectListItem customer in ViewBag.Customers)
+                            {
+                                <option value="@customer.Value">@customer.Text</option>
+                            }
+                        }
+                    </select>
+                    <span asp-validation-for="CustomerId" class="text-danger"></span>
+                </div>
+  				<div class="pb-2">  
+  					<label asp-for="Type"></label>  
+  					<select asp-for="Type" class="form-select">
+                        <option value="">-- Select Type --</option>
+                        <option value="Savings">Savings</option>
+                        <option value="Checking">Checking</option>
+                    </select>
+  					<span asp-validation-for="Type" class="text-danger"></span>  
+  				</div>     
+                <div class="pb-2">
+                    <label asp-for="OpenDate"></label>
+                    <input asp-for="OpenDate" class="form-control" type="date" />
+                    <span asp-validation-for="OpenDate" class="text-danger"></span>
+                </div>
+                <div class="pb-2">
+                    <label asp-for="Branch"></label>
+                    <select asp-for="BranchId" class="form-select">
+                        <option value="">-- Select Branch --</option>
+                        @if (ViewBag.Branches != null)
+                        {
+                            foreach (SelectListItem branch in ViewBag.Branches)
+                            {
+                                <option value="@branch.Value">@branch.Text</option>
+                            }
+                        }
+                    </select>
+                    <span asp-validation-for="BranchId" class="text-danger"></span>
+                </div>
+
+  				<div class="row row-cols-auto">  
+  					<div class="col">  
+  						<button type="submit" class="btn btn-primary" style="width:150px">CREATE</button>  
+  					</div>  
+
+  					<div class="col p-0">  
+  						<a asp-controller="Account" asp-action="Index" class="btn btn-outline-secondary">  
+  							BACK  
+  						</a>  
+  					</div>  
+  				</div>  
+
+
+  			</div>  
+  		</form>  
+  	</div>  
+  </div>  
+
+@* Client-side validation   *@
+  @section Scripts{   
+  	@{  
+  		<partial name="_ValidationScriptsPartial"></partial>  
+  	}  
+  }
