@@ -54,11 +54,11 @@
                     <td>
                         @if (item.Type == "Transfer")
                         {
-                            <span>@item.FromAccount?.Id → @item.ToAccount?.Id</span>
+                            <span>@item.FromAccount?.Id (@item.FromAccount?.Customer) → @item.ToAccount?.Id (@item.ToAccount?.Customer)</span>
                         }
                         else
                         {
-                            <span>@item.Account?.Id</span>
+                            <span>@item.Account?.Id (@item.Account?.Customer)</span>
                         }
                     </td>
                     <td>

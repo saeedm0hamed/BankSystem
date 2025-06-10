@@ -20,8 +20,11 @@ namespace Bank.Web.Controllers
         {
             var transactions = context.Transactions
                 .Include(t => t.Account)
+                .ThenInclude(c => c.Customer)
                 .Include(t => t.FromAccount)
+                .ThenInclude(c => c.Customer)
                 .Include(t => t.ToAccount)
+                .ThenInclude(c => c.Customer)
                 .OrderByDescending(t => t.Date)
                 .ToList();
             return View(transactions);

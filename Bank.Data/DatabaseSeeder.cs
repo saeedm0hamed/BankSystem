@@ -18,7 +18,7 @@ namespace Bank.Data
 
                 var branches = new List<Branch>
                 {
-                    new Branch { Name = "Branch A", Location = "Arish", Phone = "3300000", OpenDate = DateOnly.FromDateTime(DateTime.Now)},
+                    new Branch { Name = "Branch A", Location = "Suez", Phone = "3300000", OpenDate = DateOnly.FromDateTime(DateTime.Now)},
                     new Branch { Name = "Branch B", Location = "Cairo", Phone = "6600000", OpenDate = DateOnly.FromDateTime(DateTime.Now)},
                     new Branch { Name = "Branch C", Location = "Alexandria", Phone = "3800000", OpenDate = DateOnly.FromDateTime(DateTime.Now)}
                 };

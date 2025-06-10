@@ -183,7 +183,7 @@
 @section Scripts {
     <script>
         $(document).ready(function() {
-            // Search functionality
+
             $("#searchInput").on("keyup", function() {
                 var value = $(this).val().toLowerCase();
                 $(".account-row").filter(function() {
@@ -191,7 +191,7 @@
                 });
             });
 
-            // Clear search
+
             $("#clearSearch").click(function() {
                 $("#searchInput").val("");
                 $(".account-row").show();
