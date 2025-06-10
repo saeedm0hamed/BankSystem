@@ -49,7 +49,8 @@ namespace Bank.Data
                     new Account {Status = "Active", Type = "Checking", Balance = 0, OpenDate = DateOnly.FromDateTime(DateTime.Now), CustomerId = 2, BranchId = 2},
                     new Account {Status = "Active", Type = "Savings", Balance = 0, OpenDate = DateOnly.FromDateTime(DateTime.Now), CustomerId = 3, BranchId = 3},
                 };
-
+                context.Accounts.AddRange(accounts);
+                context.SaveChanges();
             }
         }
     }
