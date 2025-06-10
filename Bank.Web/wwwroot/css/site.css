@@ -21,6 +21,22 @@ nav, footer {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
+.icon-text-wrapper {
+    display: inline-flex;
+    align-items: center;
+    width: 100%;
+}
+
+.dropdown-item .icon-text-wrapper i {
+    min-width: 20px;
+    text-align: center;
+    margin-right: 0.5rem;
+}
+
+.dropdown-item {
+    white-space: nowrap;
+}
+
 .nav-link {
     text-decoration: none;
     position: relative;
@@ -114,13 +130,12 @@ nav, footer {
     pointer-events: none;
 }
 
-/* Add cursor to the typed text */
 #typed {
     position: relative;
-    display: inline-block; /* Makes cursor align properly */
+    display: inline-block;
 }
 
-    /* Create the blinking cursor */
+   
 #typed::after {
     content: '|';
     position: absolute;
@@ -128,7 +143,6 @@ nav, footer {
     animation: blink 1s step-end infinite;
 }
 
-/* Blinking animation */
 @keyframes blink {
     from, to {
         opacity: 1;
@@ -139,7 +153,6 @@ nav, footer {
     }
 }
 
-/* Center alignment for content */
 .content-container {
     text-align: center;
 }

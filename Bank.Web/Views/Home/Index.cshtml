@@ -1,31 +1,27 @@
 ﻿<div id="particles-js"></div>
 <div class="blur-overlay"></div>
 
+<link rel="preload" href="/assets/bank.svg" as="image">
+<link rel="preload" href="/assets/wings.svg" as="image">
+<link rel="preload" href="/assets/bag.svg" as="image">
+
 <main class="content-container">
-    <h1 id="typed" class="display-1 text-primary" style="font-family: 'Playfair Display', 'Apple Color Emoji', sans-serif; font-weight: 500;"></h1>
-    <p class="lead"><strong>Saeed Mohamed - Mostafa Tamer</strong></p>
+    <h1 id="typed" class="display-1 text-primary" style="font-family: 'Playfair Display', sans-serif; font-weight: 600;"></h1>
 </main>
 
-<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-
 <script>
-        document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function() {
         particlesJS.load('particles-js', '/assets/particles.json');
+
+        new Typed('#typed', {
+            strings: ['Bank Management System <img src="/assets/bag.svg" style="height: 0.7em; vertical-align: middle;">',
+                      'Bank Management System <img src="/assets/wings.svg" style="height: 0.7em; vertical-align: middle;"> ^500',
+                      'Bank Management System <img src="/assets/bank.svg" style="height: 0.6em; vertical-align: middle;"> ^500',
+                     ],
+            typeSpeed: 50,
+            showCursor: false,
+            smartBackspace: true,
+            startDelay: 500,
         });
-
-        document.addEventListener('DOMContentLoaded', function() {
-        const element = document.getElementById('typed');
-        const text = 'Bank Management System';
-        let i = 0;
-
-        function typeWriter() {
-            if (i < text.length) {
-                element.innerHTML += text.charAt(i);
-                i++;
-                setTimeout(typeWriter, 100); // Adjust speed here
-            }
-        }
-
-        typeWriter();
     });
 </script>

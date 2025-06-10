@@ -11,7 +11,7 @@ namespace Bank.Data
             using (var context = new ApplicationContext(
                 serviceProvider.GetRequiredService<DbContextOptions<ApplicationContext>>()))
             {
-                if (context.Branches.Any() || context.Customers.Any())
+                if (context.Branches.Any() || context.Customers.Any() || context.Employees.Any() || context.Accounts.Any())
                 {
                     return;
                 }
@@ -42,6 +42,13 @@ namespace Bank.Data
                 };
                 context.Employees.AddRange(employees);
                 context.SaveChanges();
+
+                var accounts = new List<Account>
+                { 
+                    new Account {Status = "Active", Type = "Savings", Balance = 0, OpenDate = DateOnly.FromDateTime(DateTime.Now), CustomerId = 1, BranchId = 1},
+                    new Account {Status = "Active", Type = "Checking", Balance = 0, OpenDate = DateOnly.FromDateTime(DateTime.Now), CustomerId = 2, BranchId = 2},
+                    new Account {Status = "Active", Type = "Savings", Balance = 0, OpenDate = DateOnly.FromDateTime(DateTime.Now), CustomerId = 3, BranchId = 3},
+                };
 
             }
         }
