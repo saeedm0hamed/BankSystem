@@ -1,4 +1,4 @@
 *.cs linguist-language=C#
 *.cshtml linguist-language=C#
 *.sln linguist-language=C#
-* linguist-detectable=true
+*.js linguist-detectable=false
