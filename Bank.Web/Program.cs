@@ -21,9 +21,12 @@ namespace Bank.Web
 
             var app = builder.Build();
 
-            // Seed database
+            // Seed database and auto-apply migrations on run
             using (var scope = app.Services.CreateScope())
             {
+                var db = scope.ServiceProvider.GetRequiredService<ApplicationContext>();
+                db.Database.Migrate();
+
                 var services = scope.ServiceProvider;
                 try
                 {
@@ -35,7 +38,6 @@ namespace Bank.Web
                     logger.LogError(ex, "An error occurred while seeding the database.");
                 }
             }
-
 
             // HTTP request pipeline configuration
             if (!app.Environment.IsDevelopment())
