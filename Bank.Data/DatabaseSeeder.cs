@@ -1,19 +1,21 @@
-﻿using Bank.Models;
+﻿using System.Data;
+using Bank.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Bank.Data
 {
     public static class DatabaseSeeder
     {
-        public static void Initialize(IServiceProvider serviceProvider)
+        public static Task InitializeAsync(IServiceProvider serviceProvider)
         {
-            using (var context = new ApplicationContext(
-                serviceProvider.GetRequiredService<DbContextOptions<ApplicationContext>>()))
+            using (var context = new ApplicationContext(serviceProvider.GetRequiredService<DbContextOptions<ApplicationContext>>()))
             {
                 if (context.Branches.Any() || context.Customers.Any() || context.Employees.Any() || context.Accounts.Any())
                 {
-                    return;
+                    return Task.CompletedTask;
                 }
 
                 var branches = new List<Branch>
@@ -51,7 +53,11 @@ namespace Bank.Data
                 };
                 context.Accounts.AddRange(accounts);
                 context.SaveChanges();
+
+                
             }
+
+            return Task.CompletedTask;
         }
     }
 }

@@ -1,9 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Bank.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace Bank.Data
 {
-    public class ApplicationContext(DbContextOptions<ApplicationContext> options) : DbContext(options)
+    public class ApplicationContext(DbContextOptions<ApplicationContext> options) : IdentityDbContext<IdentityUser>(options)
     {
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Branch> Branches { get; set; }

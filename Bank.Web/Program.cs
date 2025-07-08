@@ -1,11 +1,14 @@
 using Bank.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using Bank.Web.Utility;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace Bank.Web
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -13,11 +16,22 @@ namespace Bank.Web
             builder.Services.AddControllersWithViews();
             builder.Services.AddDbContext<ApplicationContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+
+            builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<ApplicationContext>().AddDefaultTokenProviders();
+            builder.Services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = $"/identity/account/login";
+                options.LogoutPath = $"/identity/account/logout";
+                options.AccessDeniedPath = $"/identity/account/accessdenied";
+            });
+            builder.Services.AddRazorPages();
             builder.Services.Configure<RouteOptions>(options =>
             {
                 options.LowercaseUrls = true;
                 options.LowercaseQueryStrings = true;
             });
+            builder.Services.AddScoped<IEmailSender, EmailSender>();
 
             var app = builder.Build();
 
@@ -30,7 +44,7 @@ namespace Bank.Web
                 var services = scope.ServiceProvider;
                 try
                 {
-                    DatabaseSeeder.Initialize(services);
+                    await DatabaseSeeder.InitializeAsync(services);
                 }
                 catch (Exception ex)
                 {
@@ -48,13 +62,27 @@ namespace Bank.Web
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
+            app.MapRazorPages();
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
             app.Run();
         }
     }
 }
+
+/* 
+    User Authentication & Authorization (Session/JWT-based) < Done
+    ViewModel
+    async task
+    Payment Integration (Stripe)
+    Repository Pattern and Unit Of Work
+    API
+    CSS
+    n8n
+
+ */
