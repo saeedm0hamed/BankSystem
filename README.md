@@ -1,8 +1,13 @@
-# Apex Bank Management System 💰
+# Bank Management System 💰
 
-Apex Bank Management System is a modern, dark-themed ASP.NET Core MVC web application designed to manage financial entities, coordinate employee operations, and handle transactions. This platform features secure user authentication and gives administrators and employees an elegant, interactive dashboard to manage branches, customers, bank accounts, and financial transfers.
+Bank Management System is a modern, dark-themed ASP.NET Core MVC web application designed to manage financial entities, coordinate employee operations, and handle transactions. This platform features secure user authentication and gives administrators and employees an elegant, interactive dashboard to manage branches, customers, bank accounts, and financial transfers.
 
 The application is built using the ASP.NET MVC architecture and leverages Entity Framework Core alongside ASP.NET Core Identity for secure access control.
+
+![ERD](erd.jpeg)
+![SCHEMA](schema.jpeg)
+
+
 
 ## Key Features
 
