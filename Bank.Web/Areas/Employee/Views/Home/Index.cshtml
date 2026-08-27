@@ -1,12 +1,59 @@
-﻿<div id="particles-js"></div>
+<div id="particles-js"></div>
 <div class="blur-overlay"></div>
 
-<link rel="preload" href="/assets/bank.svg" as="image">
-<link rel="preload" href="/assets/wings.svg" as="image">
-<link rel="preload" href="/assets/bag.svg" as="image">
+<main class="container d-flex align-items-center justify-content-center" style="position: relative; z-index: 1; height: calc(100vh - 180px); min-height: 480px; max-height: 580px;">
+    <div class="row w-100 justify-content-center">
+        <div class="col-md-8 col-lg-6 text-center">
+            <!-- Glassmorphism Card Wrapper -->
+            <div class="p-4 rounded-4 border border-secondary shadow-lg" 
+                 style="background: rgba(17, 24, 39, 0.7); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08) !important;">
+                
+                <div class="mb-3">
+                    <i class="bi bi-shield-lock-fill text-primary" style="font-size: 3rem; filter: drop-shadow(0 0 12px rgba(0, 253, 131, 0.4));"></i>
+                </div>
 
-<main class="content-container">
-    <h1 id="typed" class="display-1 text-primary" style="font-family: 'Playfair Display', sans-serif; font-weight: 600;"></h1>
+                <h1 id="typed" class="display-5 text-primary mb-2" style="font-family: 'Poppins', sans-serif; font-weight: 700; height: 1.2em;"></h1>
+
+                <p class="text-muted fs-6 mb-4" style="font-weight: 400; max-width: 480px; margin: 0 auto;">
+                    Secure, lightning-fast banking management and branch coordination. Monitor transactions, manage customer profiles, and handle audits in real time.
+                </p>
+
+                <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <a class="btn btn-primary btn-lg px-4 gap-3" asp-area="Admin" asp-controller="Customer" asp-action="Index">
+                            <i class="bi bi-speedometer2 me-2"></i> Go to Dashboard
+                        </a>
+                    }
+                    else
+                    {
+                        <a class="btn btn-primary btn-lg px-4 gap-3" asp-area="Identity" asp-page="/Account/Login">
+                            <i class="bi bi-box-arrow-in-right me-2"></i> Access Portal
+                        </a>
+                        <a class="btn btn-outline-primary btn-lg px-4" asp-area="Identity" asp-page="/Account/Register">
+                            Register User
+                        </a>
+                    }
+                </div>
+                
+                <div class="row mt-4 pt-3 border-top border-secondary text-start" style="border-color: rgba(255, 255, 255, 0.05) !important;">
+                    <div class="col-4 text-center">
+                        <h4 class="text-primary mb-0 font-weight-bold">100%</h4>
+                        <small class="text-muted">Secured</small>
+                    </div>
+                    <div class="col-4 text-center border-start border-secondary" style="border-color: rgba(255, 255, 255, 0.05) !important;">
+                        <h4 class="text-primary mb-0 font-weight-bold">Real-time</h4>
+                        <small class="text-muted">Auditing</small>
+                    </div>
+                    <div class="col-4 text-center border-start border-secondary" style="border-color: rgba(255, 255, 255, 0.05) !important;">
+                        <h4 class="text-primary mb-0 font-weight-bold">24/7</h4>
+                        <small class="text-muted">Availability</small>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
 </main>
 
 <script>
@@ -14,14 +61,11 @@
         particlesJS.load('particles-js', '/assets/particles.json');
 
         new Typed('#typed', {
-            strings: ['Bank Management System <img src="/assets/bag.svg" style="height: 0.7em; vertical-align: middle;">',
-                      'Bank Management System <img src="/assets/wings.svg" style="height: 0.7em; vertical-align: middle;"> ^500',
-                      'Bank Management System <img src="/assets/bank.svg" style="height: 0.6em; vertical-align: middle;"> ^500',
-                     ],
-            typeSpeed: 50,
-            showCursor: false,
-            smartBackspace: true,
-            startDelay: 500,
+            strings: ['Bank System', 'Secure Assets', 'Reliable Service'],
+            typeSpeed: 65,
+            backSpeed: 40,
+            loop: true,
+            showCursor: false
         });
     });
 </script>

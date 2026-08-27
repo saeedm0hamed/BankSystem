@@ -48,8 +48,9 @@ body {
     font-family: 'Poppins', sans-serif;
     font-weight: 600;
     margin-bottom: 60px;
+    background-color: #0b0f19;
+    color: #f3f4f6;
 }
-
 
 nav, footer {
     position: relative;
@@ -113,7 +114,6 @@ nav, footer {
     opacity: 1;
 }
 
-
 @keyframes rotate-97 {
     0% {
         transform: rotate(0deg);
@@ -124,7 +124,6 @@ nav, footer {
     }
 }
 
-
 #particles-js {
     position: fixed;
     top: 0;
@@ -132,7 +131,7 @@ nav, footer {
     width: 100%;
     height: 100%;
     z-index: -1;
-    background: #ffffff;
+    background: #0b0f19;
     pointer-events: auto;
     touch-action: manipulation;
 }
@@ -144,9 +143,99 @@ nav, footer {
     width: 100vw;
     height: 100vh;
     backdrop-filter: blur(8px);
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(11, 15, 25, 0.6);
     z-index: 0;
     pointer-events: none !important;
+}
+
+/* Global Dark Mode Overrides */
+nav.navbar {
+    background-color: #111827 !important;
+    border-bottom: 1px solid #1f2937 !important;
+}
+
+.navbar .nav-link, .navbar-brand {
+    color: #e5e7eb !important;
+}
+
+.navbar .nav-link:hover {
+    color: #00fd83 !important;
+}
+
+.dropdown-menu {
+    background-color: #111827 !important;
+    border: 1px solid #1f2937 !important;
+}
+
+.dropdown-item {
+    color: #e5e7eb !important;
+    transition: all 0.2s ease;
+}
+
+.dropdown-item:hover {
+    background-color: #1f2937 !important;
+    color: #00fd83 !important;
+}
+
+.dropdown-divider {
+    border-top: 1px solid #1f2937 !important;
+}
+
+.card {
+    background-color: #111827 !important;
+    border: 1px solid #1f2937 !important;
+    color: #f3f4f6 !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3) !important;
+}
+
+.card-header {
+    background: #1f2937 !important;
+    border-bottom: 1px solid #374151 !important;
+    color: #f3f4f6 !important;
+}
+
+.form-control, .form-select {
+    background-color: #1f2937 !important;
+    border: 1px solid #374151 !important;
+    color: #f3f4f6 !important;
+}
+
+.form-control:focus, .form-select:focus {
+    background-color: #1f2937 !important;
+    color: #f3f4f6 !important;
+    border-color: #00fd83 !important;
+    box-shadow: 0 0 0 0.25rem rgba(0, 253, 131, 0.25) !important;
+}
+
+.table {
+    color: #e5e7eb !important;
+    border-color: #1f2937 !important;
+}
+
+.table th, .table td {
+    border-color: #1f2937 !important;
+}
+
+.table thead th {
+    background-color: #1f2937 !important;
+    color: #00fd83 !important;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(255, 255, 255, 0.02) !important;
+}
+
+.text-muted {
+    color: #9ca3af !important;
+}
+
+.swal2-popup {
+    background-color: #111827 !important;
+    color: #f3f4f6 !important;
+}
+
+.swal2-title {
+    color: #f3f4f6 !important;
 }
 
 
