@@ -1,4 +1,43 @@
 
+:root {
+    --bs-primary: #00fd83;
+    --bs-primary-rgb: 0, 253, 131;
+    --bs-link-color: #00ca68;
+    --bs-link-hover-color: #00994e;
+}
+
+.text-primary {
+    color: #00fd83 !important;
+}
+
+.bg-primary {
+    background-color: #00fd83 !important;
+}
+
+.btn-primary {
+    background-color: #00fd83 !important;
+    border-color: #00fd83 !important;
+    color: #121212 !important;
+    font-weight: 600;
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+    background-color: #00ca68 !important;
+    border-color: #00ca68 !important;
+    color: #121212 !important;
+}
+
+.btn-outline-primary {
+    color: #00ca68 !important;
+    border-color: #00ca68 !important;
+}
+
+.btn-outline-primary:hover, .btn-outline-primary:focus, .btn-outline-primary:active {
+    background-color: #00fd83 !important;
+    border-color: #00fd83 !important;
+    color: #121212 !important;
+}
+
 html {
     font-size: 14px;
     position: relative;
@@ -18,7 +57,7 @@ nav, footer {
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #00fd83;
 }
 
 .icon-text-wrapper {
@@ -57,7 +96,7 @@ nav, footer {
     right: -50%;
     bottom: -50%;
     left: -50%;
-    background: linear-gradient(45deg, #0066ff);
+    background: linear-gradient(45deg, #00fd83);
     background-size: 300% 300%;
     z-index: -1;
     border-radius: 100vmax;
